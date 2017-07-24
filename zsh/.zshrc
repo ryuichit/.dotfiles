@@ -1,6 +1,6 @@
 #1
 HISTFILE=~/.zhistory
-SAVEHIST=10000 #number of command saving in .zhistory
+SAVEHIST=100000 #number of command saving in .zhistory
 HISTSIZE=10000 #in zsh executing
 alias history='history -10000'
 #2
@@ -156,6 +156,13 @@ source /opt/homebrew/share/zsh/site-functions/_aws
 alias pod=/Users/ryuichi/.rbenv/shims/pod
 #alias pod=/usr/local/bin/pod
 
+# diff
+if [[ -x `which colordiff` ]]; then
+    alias diff='colordiff -uprN'
+else
+    alias diff='diff -uprN'
+fi
+
 # github
 eval "$(hub alias -s)"
 compdef hub=git
@@ -171,3 +178,10 @@ export PATH="$GOPATH/bin:$PATH"
 export JSCPATH=/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources
 export PATH="$JSCPATH:$PATH"
 alias js2coffee=/opt/local/lib/node_modules/js2coffee/bin/js2coffee
+export PATH="`yarn global bin`:$PATH"
+
+# chrome
+alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+
+# python
+eval "$(pyenv init -)"
