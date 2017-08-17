@@ -1,0 +1,17 @@
+(auto-insert-mode)
+(defun ruby-action ()
+  
+  )
+(setq auto-insert-alist
+      (append
+       '(
+         (("\\.rb" . "header")
+          "Short description: "
+          "#" n
+          "#  " (file-name-nondirectory (buffer-file-name)) n
+          "#  " str n
+          "#" n
+          "#  Created by " (user-full-name) " on " (format-time-string "%m/%d/%y") n
+          "#  Copyright (c) " (substring (current-time-string) -4) " " (user-full-name) ". All rights reserved." n
+          "# " n n _ ))
+       auto-insert-alist))
