@@ -4,6 +4,13 @@
 ;; ----------------------------------------
 ;; バックアップファイルを作らない
 (setq backup-inhibited t)
+;; 起動時にstartup screenを表示しない
+(setq inhibit-startup-screen t)
+;; 起動時にscratchバッファを表示する
+;; (ただしこれを指定するとファイル指定して起動したときもscratchバッファになってしまう)
+;;(setq initial-buffer-choice t)
+;; scratchバッファのメッセージを削除する
+(setq initial-scratch-message "")
 ;; killのときに改行も含めて行全体をkillする
 (setq kill-whole-line t)
 ;; ファイル名の補完で大文字小文字を区別しない

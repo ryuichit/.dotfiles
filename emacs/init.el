@@ -34,5 +34,11 @@
 ;; init-loader
 ;; ----------------------------------------
 (require 'init-loader)
+;; 起動時にログバッファを表示しない
+;; * init-loader-loadよりも前に指定すること。
+(setq init-loader-show-log-after-init nil)
 ;; 設定ファイルのディレクトリを指定する
 (init-loader-load "~/.emacs.d/init_loader")
+;; エラー時のみログバッファを表示する
+(if (not (equal (init-loader-error-log) ""))
+    (init-loader-show-log))
