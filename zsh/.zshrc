@@ -166,7 +166,7 @@ fi
 # github
 eval "$(hub alias -s)"
 compdef hub=git
-alias git-log='git log --all --date-order --graph --oneline --decorate'
+alias gl='git log --all --date-order --graph --oneline --decorate'
 
 # go
 #export GOROOT=$HOME/lib/go
