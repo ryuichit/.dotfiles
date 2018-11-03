@@ -3,3 +3,5 @@
 	name = ryuichit
 [color]
 	ui = auto
+[core]
+	pager = less -X
