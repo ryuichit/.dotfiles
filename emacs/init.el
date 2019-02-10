@@ -28,6 +28,9 @@
   '(
     ;; 以降で使用するパッケージを記載する
     init-loader
+    company
+    typescript-mode
+    tide
     ))
 (let ((not-installed (loop for x in installing-package-list
 			   when (not (package-installed-p x))
