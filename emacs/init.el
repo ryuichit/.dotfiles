@@ -1,3 +1,10 @@
+;; Emacs25からインストールパッケージがpackage-selected-package変数に保持されるよ
+;; うになり、その値がデフォルトではinit.elに自動書き込みされるので、書き込みファ
+;; イルをcustom.elに指定変更する。
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(when (file-exists-p custom-file)
+  (load custom-file))
+
 ;; ----------------------------------------
 ;; package.el
 ;; ----------------------------------------
