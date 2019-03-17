@@ -29,6 +29,7 @@
     ;; 以降で使用するパッケージを記載する
     init-loader
     company
+    php-mode
     typescript-mode
     tide
     ))
