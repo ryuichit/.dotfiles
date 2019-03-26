@@ -85,7 +85,7 @@ setopt CORRECT_ALL #ファイル名,コマンド名の訂正機能をオンに�
 alias mv='nocorrect mv'
 alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
-export PAGER=/opt/local/bin/less
+export PAGER=/usr/bin/less
 #11
 FCEDIT=emacs
 
@@ -133,7 +133,7 @@ export LESSOPEN='|lessfilter %s'
 export LESSKEY='~/.lesskey'
 
 #cat
-alias cat='pygmentize -O style=monokai -f terminal256 -g -O encoding=utf-8'
+#alias cat='pygmentize -O style=monokai -f terminal256 -g -O encoding=utf-8'
 function cl() {
     c $1 | nl -n ln -b a
 }
@@ -148,9 +148,6 @@ export GREP_OPTIONS=--color=auto
 #ruby
 #export RACK_ENV=development
 eval "$(rbenv init -)"
-
-# aws
-source /opt/homebrew/share/zsh/site-functions/_aws
 
 # cocoapods
 alias pod=/Users/ryuichi/.rbenv/shims/pod
@@ -168,20 +165,41 @@ eval "$(hub alias -s)"
 compdef hub=git
 alias gl='git log --all --date-order --graph --oneline --decorate'
 
+# python
+eval "$(pyenv init -)"
+
 # go
 #export GOROOT=$HOME/lib/go
 #export GOBIN=$GOROOT/bin
 export GOPATH=$HOME/lib/go/pkg
 export PATH="$GOPATH/bin:$PATH"
 
+# mysql
+export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+
+# node
+export PATH="$HOME/.ndenv/bin:$PATH"
+eval "$(ndenv init -)"
+
 # js
-export JSCPATH=/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources
-export PATH="$JSCPATH:$PATH"
-alias js2coffee=/opt/local/lib/node_modules/js2coffee/bin/js2coffee
-export PATH="`yarn global bin`:$PATH"
+#export JSCPATH=/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources
+#export PATH="$JSCPATH:$PATH"
+#alias js2coffee=/opt/local/lib/node_modules/js2coffee/bin/js2coffee
+#export PATH="`yarn global bin`:$PATH"
 
 # chrome
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 
-# python
-eval "$(pyenv init -)"
+# ssh
+alias ssh-sm-dev="ssh -f -N -o ServerAliveInterval=60 -L 127.0.0.1:33061:anews-development-cluster.cluster-czturwxx5mqb.ap-northeast-1.rds.amazonaws.com:3306 -i ~/.ssh/files/sm-rds-dev.pem ec2-user@52.194.211.160"
+alias ssh-sm-prod="ssh -f -N -o ServerAliveInterval=60 -L 127.0.0.1:33063:anews-production-cluster.cluster-czturwxx5mqb.ap-northeast-1.rds.amazonaws.com:3306 -i ~/.ssh/files/sm-rds-dev.pem ec2-user@52.194.211.160"
+alias ssh-logos="ssh -f -N -o ServerAliveInterval=60 -L 127.0.0.1:33070:logos-production.caon4mkpg0d2.ap-northeast-1.rds.amazonaws.com:3306 -i ~/.ssh/files/sm-rds-dev.pem ec2-user@52.194.211.160"
+alias ssh-sm-asales-dev="ssh -f -N -o ServerAliveInterval=60 -L 127.0.0.1:33080:asales-development-cluster.cluster-czturwxx5mqb.ap-northeast-1.rds.amazonaws.com:33066 -i ~/.ssh/files/sm-rds-dev.pem ec2-user@52.194.211.160"
+alias ssh-sm-asales-prod="ssh -f -N -o ServerAliveInterval=60 -L 127.0.0.1:33081:asales-production-cluster.cluster-czturwxx5mqb.ap-northeast-1.rds.amazonaws.com:33066 -i ~/.ssh/files/sm-prod.pem sm-prod@13.231.147.162"
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /Users/ryuichit/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/ryuichit/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /Users/ryuichit/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/ryuichit/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
