@@ -164,6 +164,7 @@ fi
 eval "$(hub alias -s)"
 compdef hub=git
 alias gl='git log --all --date-order --graph --oneline --decorate'
+alias gs='git status'
 
 # python
 eval "$(pyenv init -)"
