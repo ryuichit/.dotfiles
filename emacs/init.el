@@ -32,6 +32,9 @@
     php-mode
     typescript-mode
     tide
+    rust-mode
+    go-mode
+    company-go
     ))
 (let ((not-installed (loop for x in installing-package-list
 			   when (not (package-installed-p x))
