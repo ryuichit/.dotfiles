@@ -165,6 +165,7 @@ eval "$(hub alias -s)"
 compdef hub=git
 alias gl='git log --all --date-order --graph --oneline --decorate'
 alias gs='git status'
+alias gb='git browse'
 
 # python
 eval "$(pyenv init -)"
@@ -172,7 +173,7 @@ eval "$(pyenv init -)"
 # go
 #export GOROOT=$HOME/lib/go
 #export GOBIN=$GOROOT/bin
-export GOPATH=$HOME/lib/go/pkg
+export GOPATH=$HOME/go
 export PATH="$GOPATH/bin:$PATH"
 
 # mysql
@@ -181,12 +182,6 @@ export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 # node
 export PATH="$HOME/.ndenv/bin:$PATH"
 eval "$(ndenv init -)"
-
-# js
-#export JSCPATH=/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources
-#export PATH="$JSCPATH:$PATH"
-#alias js2coffee=/opt/local/lib/node_modules/js2coffee/bin/js2coffee
-#export PATH="`yarn global bin`:$PATH"
 
 # chrome
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
