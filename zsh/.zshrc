@@ -180,8 +180,7 @@ export PATH="$GOPATH/bin:$PATH"
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 
 # node
-export PATH="$HOME/.ndenv/bin:$PATH"
-eval "$(ndenv init -)"
+eval "$(nodenv init -)"
 
 # chrome
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
