@@ -43,6 +43,8 @@
     minitest
     elpy
     terraform-mode
+    json-mode
+    yafolding
     ))
 (let ((not-installed (loop for x in installing-package-list
 			   when (not (package-installed-p x))
