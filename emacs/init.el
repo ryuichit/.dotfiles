@@ -17,8 +17,12 @@
 (package-initialize)
 
 ;; ----------------------------------------
-
+;; cl
 ;; loopとかを使う
+;; ----------------------------------------
+(when (>= emacs-major-version 27)
+  (setq byte-compile-warnings '(not cl-functions obsolete))
+  )
 (require 'cl)
 
 ;; ----------------------------------------
