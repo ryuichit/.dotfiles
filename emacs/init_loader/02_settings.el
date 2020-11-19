@@ -15,6 +15,8 @@
 (setq kill-whole-line t)
 ;; ファイル名の補完で大文字小文字を区別しない
 (setq read-file-name-completion-ignore-case t)
+;; 警告音を出さない
+(setq ring-bell-function 'ignore)
 
 ;; ----------------------------------------
 ;; mode設定
