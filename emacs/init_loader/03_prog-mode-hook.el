@@ -12,6 +12,12 @@
 (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
 
 ;; ----------------------------------------
+;; dockerfile-mode
+;; ----------------------------------------
+;; Dockerfileという文字列を名前に含んでいるファイル全てに適用
+(add-to-list 'auto-mode-alist '("Dockerfile" . dockerfile-mode))
+
+;; ----------------------------------------
 ;; yafolding-mode
 ;; ----------------------------------------
 ;; prod-modeでONにする
