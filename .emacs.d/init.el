@@ -52,6 +52,8 @@
     ivy
     dumb-jump
     dockerfile-mode
+    yaml-mode
+    js2-mode
     ))
 (let ((not-installed (loop for x in installing-package-list
 			   when (not (package-installed-p x))
