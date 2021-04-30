@@ -38,7 +38,8 @@
     tide
     rust-mode
     go-mode
-    company-go
+    lsp-mode
+    lsp-ui
     vue-mode
     haml-mode
     ruby-electric
