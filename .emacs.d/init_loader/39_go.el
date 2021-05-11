@@ -24,6 +24,8 @@
 		            :background "grey60")
 (set-face-attribute 'company-scrollbar-bg nil
 		            :background "gray40")
+;; 補完を表示するまでの遅延時間
+(setq company-idle-delay 0)
 
 ;; ----------------------------------------
 ;; lsp-mode
