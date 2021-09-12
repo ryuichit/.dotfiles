@@ -8,3 +8,8 @@ export LC_ALL=en_US.utf-8
 alias gl='git log --all --date-order --graph --oneline --decorate'
 alias gs='git status'
 alias gb='git browse'
+
+# python
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
