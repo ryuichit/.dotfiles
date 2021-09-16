@@ -160,12 +160,22 @@ else
     alias diff='diff -uprN'
 fi
 
+# git
+alias gd='git diff'
+alias gl='git log --all --date-order --graph --oneline --decorate'
+alias gs='git status'
+
+if [ ! -e /usr/local/bin/diff-highlight ]; then
+    ln -s /usr/local/share/git-core/contrib/diff-highlight/diff-highlight /usr/local/bin/diff-highlight
+fi
+
 # github
 eval "$(hub alias -s)"
 compdef hub=git
-alias gl='git log --all --date-order --graph --oneline --decorate'
-alias gs='git status'
 alias gb='git browse'
+
+# tig
+alias g='tig'
 
 # python
 eval "$(pyenv init -)"
