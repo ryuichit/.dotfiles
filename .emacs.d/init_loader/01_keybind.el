@@ -16,6 +16,20 @@
 (define-key global-map "\C-q" (make-sparse-keymap))
 
 ;; ----------------------------------------
+;; neotree
+;; ----------------------------------------
+;; tree画面の開閉キーバインドを設定
+(global-set-key (kbd "C-c C-s") 'neotree-toggle)
+;; arrowテーマ
+(setq neo-theme 'arrow)
+;; tree画面を開いたときにカレントディレクトリを描画
+(setq neo-smart-open t)
+;; ドットファイルも表示
+(setq neo-show-hidden-files t)
+;; 定期的にカレントディレクトリを再描画
+(setq neo-autorefresh t)
+
+;; ----------------------------------------
 ;; window resizer
 ;; ---------------------------------------- 
 (defun window-resizer ()
