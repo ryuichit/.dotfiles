@@ -30,8 +30,21 @@
 (setq neo-autorefresh t)
 
 ;; ----------------------------------------
+;; tig-blame-current-file
+;; ----------------------------------------
+(defun tig-blame-current-file ()
+  (interactive)
+  (shell-command
+   (format "tmux new-window 'cd %s && tig blame +%s %s'"
+           (file-name-directory buffer-file-name)
+           (line-number-at-pos)
+           (file-name-nondirectory buffer-file-name))))
+;; C-x v-t でtigを開く
+(define-key vc-prefix-map [(t)] 'tig-blame-current-file)
+
+;; ----------------------------------------
 ;; window resizer
-;; ---------------------------------------- 
+;; ----------------------------------------
 (defun window-resizer ()
   "Control window size and position."
   (interactive)
