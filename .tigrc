@@ -5,11 +5,19 @@ set main-view = id:yes commit-title:yes,graph,refs,overflow=no
 set commit-order = date
 
 # User-defined commands
-bind main c !git checkout %(branch)
-bind main C !git checkout -b %(prompt) %(branch)
-bind main p ?git cherry-pick %(commit)
-bind refs c !git checkout %(branch)
+bind blob   p !git log -p %(file)
+bind main   C !git checkout %(branch)
+bind main   c !git checkout %(commit)
+bind main   B !git checkout -b %(prompt) %(branch)
+bind main   p ?git cherry-pick %(commit)
+bind reflog C !git checkout %(branch)
+bind reflog c !git checkout %(commit)
+bind refs   C !git checkout %(branch)
+bind refs   c !git checkout %(commit)
 
 # Cursor navigation
 bind generic <Ctrl-V> move-page-down
 bind generic <Ctrl-W> move-page-up
+
+# GitHub
+bind generic <Ctrl-G> !@hub browse -- commit/%(commit)
