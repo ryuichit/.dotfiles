@@ -139,7 +139,7 @@ function cl() {
 }
 
 #homebrew
-export HOMEBREW_CACHE=/opt/homebrew/cache
+#export HOMEBREW_CACHE=/opt/homebrew/cache
 
 #grep
 export GREP_COLOR="01;32"
