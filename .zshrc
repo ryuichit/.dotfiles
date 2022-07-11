@@ -124,7 +124,7 @@ export R_HOME=/Library/Frameworks/R.framework/Versions/3.0/Resources/
 alias symbolicatecrash='/Applications/Xcode.app/Contents/SharedFrameworks/DVTFoundation.framework/Versions/A/Resources/symbolicatecrash'
 
 #export DEVELOPER_DIR="/Applications/Xcode-6.4.app/Contents/Developer/"
-export DEVELOPER_DIR="/Applications/Xcode.app/Contents/Developer/"
+#export DEVELOPER_DIR="/Applications/Xcode.app/Contents/Developer/"
 
 # less
 export LESS='-R'
