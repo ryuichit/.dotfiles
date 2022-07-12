@@ -160,17 +160,23 @@ fi
 alias gd='git diff'
 alias gl='git log --all --date-order --graph --oneline --decorate'
 alias gs='git status'
-
-if [ ! -e /usr/local/bin/diff-highlight ]; then
+if ! type diff-highlight > /dev/null 2>&1; then
+    brew install git
     ln -s /usr/local/share/git-core/contrib/diff-highlight/diff-highlight /usr/local/bin/diff-highlight
 fi
 
 # github
+if ! type hub > /dev/null 2>&1; then
+    brew install hub
+fi
 eval "$(hub alias -s)"
 compdef hub=git
 alias gb='git browse'
 
 # tig
+if ! type tig > /dev/null 2>&1; then
+    brew install tig
+fi
 alias g='tig'
 
 # node
