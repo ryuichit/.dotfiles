@@ -145,10 +145,6 @@ function cl() {
 export GREP_COLOR="01;32"
 export GREP_OPTIONS=--color=auto
 
-#ruby
-#export RACK_ENV=development
-eval "$(rbenv init -)"
-
 # cocoapods
 alias pod=/Users/ryuichi/.rbenv/shims/pod
 #alias pod=/usr/local/bin/pod
@@ -177,8 +173,23 @@ alias gb='git browse'
 # tig
 alias g='tig'
 
+# node
+if ! type nodenv > /dev/null 2>&1; then
+    brew install nodenv
+fi
+eval "$(nodenv init -)"
+
 # python
+if ! type pyenv > /dev/null 2>&1; then
+    brew install pyenv
+fi
 eval "$(pyenv init -)"
+
+#ruby
+if ! type rbenv > /dev/null 2>&1; then
+    brew install rbenv ruby-build
+fi
+eval "$(rbenv init -)"
 
 # go
 #export GOROOT=$HOME/lib/go
@@ -188,9 +199,6 @@ export PATH="$GOPATH/bin:$PATH"
 
 # mysql
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
-
-# node
-eval "$(nodenv init -)"
 
 # chrome
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
