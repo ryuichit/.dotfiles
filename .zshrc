@@ -204,7 +204,15 @@ export GOPATH=$HOME/go
 export PATH="$GOPATH/bin:$PATH"
 
 # mysql
+if ! type mysql > /dev/null 2>&1; then
+    brew install mysql@5.7
+fi
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+
+# mycli
+if ! type mycli > /dev/null 2>&1; then
+    brew install mycli
+fi
 
 # chrome
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
