@@ -124,7 +124,7 @@ export R_HOME=/Library/Frameworks/R.framework/Versions/3.0/Resources/
 alias symbolicatecrash='/Applications/Xcode.app/Contents/SharedFrameworks/DVTFoundation.framework/Versions/A/Resources/symbolicatecrash'
 
 #export DEVELOPER_DIR="/Applications/Xcode-6.4.app/Contents/Developer/"
-export DEVELOPER_DIR="/Applications/Xcode.app/Contents/Developer/"
+#export DEVELOPER_DIR="/Applications/Xcode.app/Contents/Developer/"
 
 # less
 export LESS='-R'
@@ -139,15 +139,11 @@ function cl() {
 }
 
 #homebrew
-export HOMEBREW_CACHE=/opt/homebrew/cache
+#export HOMEBREW_CACHE=/opt/homebrew/cache
 
 #grep
 export GREP_COLOR="01;32"
 export GREP_OPTIONS=--color=auto
-
-#ruby
-#export RACK_ENV=development
-eval "$(rbenv init -)"
 
 # cocoapods
 alias pod=/Users/ryuichi/.rbenv/shims/pod
@@ -160,15 +156,46 @@ else
     alias diff='diff -uprN'
 fi
 
-# github
-eval "$(hub alias -s)"
-compdef hub=git
+# git
+alias gd='git diff'
 alias gl='git log --all --date-order --graph --oneline --decorate'
 alias gs='git status'
+if ! type diff-highlight > /dev/null 2>&1; then
+    brew install git
+    ln -s /usr/local/share/git-core/contrib/diff-highlight/diff-highlight /usr/local/bin/diff-highlight
+fi
+
+# github
+if ! type hub > /dev/null 2>&1; then
+    brew install hub
+fi
+eval "$(hub alias -s)"
+compdef hub=git
 alias gb='git browse'
 
+# tig
+if ! type tig > /dev/null 2>&1; then
+    brew install tig
+fi
+alias g='tig'
+
+# node
+if ! type nodenv > /dev/null 2>&1; then
+    brew install nodenv
+fi
+eval "$(nodenv init -)"
+
 # python
+if ! type pyenv > /dev/null 2>&1; then
+    brew install pyenv
+fi
 eval "$(pyenv init -)"
+
+#ruby
+if ! type rbenv > /dev/null 2>&1; then
+    brew install rbenv ruby-build
+fi
+eval "$(rbenv init -)"
 
 # go
 #export GOROOT=$HOME/lib/go
@@ -177,10 +204,26 @@ export GOPATH=$HOME/go
 export PATH="$GOPATH/bin:$PATH"
 
 # mysql
+if ! type mysql > /dev/null 2>&1; then
+    brew install mysql@5.7
+fi
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 
-# node
-eval "$(nodenv init -)"
+# mycli
+if ! type mycli > /dev/null 2>&1; then
+    brew install mycli
+fi
+
+# awscli
+if ! type aws > /dev/null 2>&1; then
+    curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
+    sudo installer -pkg AWSCLIV2.pkg -target /
+fi
+
+# saml2aws
+if ! type saml2aws > /dev/null 2>&1; then
+    brew install saml2aws
+fi
 
 # chrome
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"

@@ -5,3 +5,7 @@
 	ui = auto
 [core]
 	pager = less -X
+[pager]
+    log = diff-highlight | less -X
+    show = diff-highlight | less -X
+    diff = diff-highlight | less -X
