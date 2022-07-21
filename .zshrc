@@ -214,6 +214,17 @@ if ! type mycli > /dev/null 2>&1; then
     brew install mycli
 fi
 
+# awscli
+if ! type aws > /dev/null 2>&1; then
+    curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
+    sudo installer -pkg AWSCLIV2.pkg -target /
+fi
+
+# saml2aws
+if ! type saml2aws > /dev/null 2>&1; then
+    brew install saml2aws
+fi
+
 # chrome
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 
