@@ -156,13 +156,23 @@ else
     alias diff='diff -uprN'
 fi
 
+#tmux
+if ! type tmux > /dev/null 2>&1; then
+    brew install tmux
+fi
+
+#emacs
+if ! type emacs > /dev/null 2>&1; then
+    brew install emacs
+fi
+
 # git
 alias gd='git diff'
 alias gl='git log --all --date-order --graph --oneline --decorate'
 alias gs='git status'
 if ! type diff-highlight > /dev/null 2>&1; then
     brew install git
-    ln -s /usr/local/share/git-core/contrib/diff-highlight/diff-highlight /usr/local/bin/diff-highlight
+    ln -s $HOMEBREW_PREFIX/share/git-core/contrib/diff-highlight/diff-highlight $HOMEBREW_PREFIX/bin/diff-highlight
 fi
 
 # github
