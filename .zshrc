@@ -238,13 +238,6 @@ fi
 # chrome
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 
-# ssh
-alias ssh-sm-dev="ssh -f -N -o ServerAliveInterval=60 -L 127.0.0.1:33061:anews-development-cluster.cluster-czturwxx5mqb.ap-northeast-1.rds.amazonaws.com:3306 -i ~/.ssh/files/sm-rds-dev.pem ec2-user@52.194.211.160"
-alias ssh-sm-prod="ssh -f -N -o ServerAliveInterval=60 -L 127.0.0.1:33063:anews-production-cluster.cluster-czturwxx5mqb.ap-northeast-1.rds.amazonaws.com:3306 -i ~/.ssh/files/sm-rds-dev.pem ec2-user@52.194.211.160"
-alias ssh-logos="ssh -f -N -o ServerAliveInterval=60 -L 127.0.0.1:33070:logos-production.caon4mkpg0d2.ap-northeast-1.rds.amazonaws.com:3306 -i ~/.ssh/files/sm-rds-dev.pem ec2-user@52.194.211.160"
-alias ssh-sm-asales-dev="ssh -f -N -o ServerAliveInterval=60 -L 127.0.0.1:33080:asales-development-cluster.cluster-czturwxx5mqb.ap-northeast-1.rds.amazonaws.com:33066 -i ~/.ssh/files/sm-rds-dev.pem ec2-user@52.194.211.160"
-alias ssh-sm-asales-prod="ssh -f -N -o ServerAliveInterval=60 -L 127.0.0.1:33081:asales-production-cluster.cluster-czturwxx5mqb.ap-northeast-1.rds.amazonaws.com:33066 -i ~/.ssh/files/sm-prod.pem sm-prod@13.231.147.162"
-
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
 [[ -f /Users/ryuichit/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/ryuichit/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh
