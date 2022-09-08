@@ -224,6 +224,11 @@ if ! type mycli > /dev/null 2>&1; then
     brew install mycli
 fi
 
+# azure cli
+if ! type az > /dev/null 2>&1; then
+    brew install azure-cli
+fi
+
 # awscli
 if ! type aws > /dev/null 2>&1; then
     curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
