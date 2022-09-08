@@ -214,10 +214,10 @@ export GOPATH=$HOME/go
 export PATH="$GOPATH/bin:$PATH"
 
 # mysql
+export PATH="$HOMEBREW_PREFIX/opt/mysql@5.7/bin:$PATH"
 if ! type mysql > /dev/null 2>&1; then
     brew install mysql@5.7
 fi
-export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 
 # mycli
 if ! type mycli > /dev/null 2>&1; then
