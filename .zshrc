@@ -158,12 +158,20 @@ fi
 
 #tmux
 if ! type tmux > /dev/null 2>&1; then
-    brew install tmux
+    if [ "$(uname)" = "Darwin" ]; then
+        brew install tmux
+    else
+        sudo apt install tmux
+    fi
 fi
 
 #emacs
 if ! type emacs > /dev/null 2>&1; then
-    brew install emacs
+    if [ "$(uname)" = "Darwin" ]; then
+        brew install emacs
+    else
+        sudo apt install emacs
+    fi
 fi
 
 # git
@@ -171,13 +179,23 @@ alias gd='git diff'
 alias gl='git log --all --date-order --graph --oneline --decorate'
 alias gs='git status'
 if ! type diff-highlight > /dev/null 2>&1; then
-    brew install git
-    ln -s $HOMEBREW_PREFIX/share/git-core/contrib/diff-highlight/diff-highlight $HOMEBREW_PREFIX/bin/diff-highlight
+    if [ "$(uname)" = "Darwin" ]; then
+        brew install git
+        ln -s $HOMEBREW_PREFIX/share/git-core/contrib/diff-highlight/diff-highlight $HOMEBREW_PREFIX/bin/diff-highlight
+    else
+        sudo apt install git
+        sudo chmod +x /usr/share/doc/git/contrib/diff-highlight/diff-highlight
+        sudo ln -s /usr/share/doc/git/contrib/diff-highlight/diff-highlight /usr/local/bin/diff-highlight
+    fi
 fi
 
 # github
 if ! type hub > /dev/null 2>&1; then
-    brew install hub
+    if [ "$(uname)" = "Darwin" ]; then
+        brew install hub
+    else
+        sudo apt install hub
+    fi
 fi
 eval "$(hub alias -s)"
 compdef hub=git
@@ -185,27 +203,37 @@ alias gb='git browse'
 
 # tig
 if ! type tig > /dev/null 2>&1; then
-    brew install tig
+    if [ "$(uname)" = "Darwin" ]; then
+        brew install tig
+    else
+        sudo apt install tig
+    fi
 fi
 alias g='tig'
 
 # node
 if ! type nodenv > /dev/null 2>&1; then
-    brew install nodenv
+    if [ "$(uname)" = "Darwin" ]; then
+        brew install nodenv
+        eval "$(nodenv init -)"
+    fi
 fi
-eval "$(nodenv init -)"
 
 # python
 if ! type pyenv > /dev/null 2>&1; then
-    brew install pyenv
+    if [ "$(uname)" = "Darwin" ]; then
+        brew install pyenv
+        eval "$(pyenv init -)"
+    fi
 fi
-eval "$(pyenv init -)"
 
 #ruby
 if ! type rbenv > /dev/null 2>&1; then
-    brew install rbenv ruby-build
+    if [ "$(uname)" = "Darwin" ]; then
+        brew install rbenv ruby-build
+        eval "$(rbenv init -)"
+    fi
 fi
-eval "$(rbenv init -)"
 
 # go
 #export GOROOT=$HOME/lib/go
@@ -216,28 +244,47 @@ export PATH="$GOPATH/bin:$PATH"
 # mysql
 export PATH="$HOMEBREW_PREFIX/opt/mysql@5.7/bin:$PATH"
 if ! type mysql > /dev/null 2>&1; then
-    brew install mysql@5.7
+    if [ "$(uname)" = "Darwin" ]; then
+        brew install mysql@5.7
+    fi
 fi
 
 # mycli
 if ! type mycli > /dev/null 2>&1; then
-    brew install mycli
+    if [ "$(uname)" = "Darwin" ]; then
+        brew install mycli
+    fi
 fi
 
 # azure cli
 if ! type az > /dev/null 2>&1; then
-    brew install azure-cli
+    if [ "$(uname)" = "Darwin" ]; then
+        brew install azure-cli
+    fi
 fi
 
 # awscli
 if ! type aws > /dev/null 2>&1; then
-    curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
-    sudo installer -pkg AWSCLIV2.pkg -target /
+    if [ "$(uname)" = "Darwin" ]; then
+        curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
+        sudo installer -pkg AWSCLIV2.pkg -target /
+    else
+        sudo apt install unzip
+        if [ $(uname -m) = "x86_64" ]; then
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+        else
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip"
+        fi
+        unzip awscliv2.zip
+        sudo ./aws/install
+    fi
 fi
 
 # saml2aws
 if ! type saml2aws > /dev/null 2>&1; then
-    brew install saml2aws
+    if [ "$(uname)" = "Darwin" ]; then
+        brew install saml2aws
+    fi
 fi
 
 # chrome
