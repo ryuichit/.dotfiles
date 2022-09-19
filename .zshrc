@@ -220,12 +220,18 @@ if ! type nodenv > /dev/null 2>&1; then
 fi
 
 # python
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
 if ! type pyenv > /dev/null 2>&1; then
     if [ "$(uname)" = "Darwin" ]; then
         brew install pyenv
-        eval "$(pyenv init -)"
+    else
+        git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+        sudo apt install build-essential
+        cd ~/.pyenv && src/configure && make -C src
     fi
 fi
+eval "$(pyenv init -)"
 
 #ruby
 if ! type rbenv > /dev/null 2>&1; then
