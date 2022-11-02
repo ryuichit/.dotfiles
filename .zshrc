@@ -232,6 +232,7 @@ if ! type pyenv > /dev/null 2>&1; then
     fi
 fi
 eval "$(pyenv init -)"
+export PATH="$HOME/.local/bin:$PATH"
 
 #ruby
 if ! type rbenv > /dev/null 2>&1; then
