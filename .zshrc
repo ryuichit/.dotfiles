@@ -212,12 +212,18 @@ fi
 alias g='tig'
 
 # node
+export PATH="$HOME/.nodenv/bin:$PATH"
 if ! type nodenv > /dev/null 2>&1; then
     if [ "$(uname)" = "Darwin" ]; then
         brew install nodenv
-        eval "$(nodenv init -)"
+    else
+        git clone https://github.com/nodenv/nodenv.git ~/.nodenv
+        cd ~/.nodenv && src/configure && make -C src
+        mkdir -p "$(nodenv root)"/plugins
+        git clone https://github.com/nodenv/node-build.git "$(nodenv root)"/plugins/node-build
     fi
 fi
+eval "$(nodenv init -)"
 
 # python
 export PYENV_ROOT="$HOME/.pyenv"
