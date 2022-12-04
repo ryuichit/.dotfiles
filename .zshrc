@@ -300,6 +300,18 @@ if ! type saml2aws > /dev/null 2>&1; then
     fi
 fi
 
+# gcloud
+if ! type gcloud > /dev/null 2>&1; then
+    if [ "$(uname)" = "Darwin" ]; then
+    else
+        sudo apt install apt-transport-https ca-certificates gnupg
+        echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+        curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+        sudo apt update && sudo apt install google-cloud-cli
+        gcloud init
+    fi
+fi
+
 # chrome
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 
