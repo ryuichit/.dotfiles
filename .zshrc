@@ -143,7 +143,7 @@ function cl() {
 
 #grep
 export GREP_COLOR="01;32"
-export GREP_OPTIONS=--color=auto
+alias grep='grep --color=auto'
 
 # cocoapods
 alias pod=/Users/ryuichi/.rbenv/shims/pod
