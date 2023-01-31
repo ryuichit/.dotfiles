@@ -143,7 +143,7 @@ function cl() {
 
 #grep
 export GREP_COLOR="01;32"
-export GREP_OPTIONS=--color=auto
+alias grep='grep --color=auto'
 
 # cocoapods
 alias pod=/Users/ryuichi/.rbenv/shims/pod
@@ -156,18 +156,46 @@ else
     alias diff='diff -uprN'
 fi
 
+#tmux
+if ! type tmux > /dev/null 2>&1; then
+    if [ "$(uname)" = "Darwin" ]; then
+        brew install tmux
+    else
+        sudo apt install tmux
+    fi
+fi
+
+#emacs
+if ! type emacs > /dev/null 2>&1; then
+    if [ "$(uname)" = "Darwin" ]; then
+        brew install emacs
+    else
+        sudo apt install emacs
+    fi
+fi
+
 # git
 alias gd='git diff'
 alias gl='git log --all --date-order --graph --oneline --decorate'
 alias gs='git status'
 if ! type diff-highlight > /dev/null 2>&1; then
-    brew install git
-    ln -s /usr/local/share/git-core/contrib/diff-highlight/diff-highlight /usr/local/bin/diff-highlight
+    if [ "$(uname)" = "Darwin" ]; then
+        brew install git
+        ln -s $HOMEBREW_PREFIX/share/git-core/contrib/diff-highlight/diff-highlight $HOMEBREW_PREFIX/bin/diff-highlight
+    else
+        sudo apt install git
+        sudo chmod +x /usr/share/doc/git/contrib/diff-highlight/diff-highlight
+        sudo ln -s /usr/share/doc/git/contrib/diff-highlight/diff-highlight /usr/local/bin/diff-highlight
+    fi
 fi
 
 # github
 if ! type hub > /dev/null 2>&1; then
-    brew install hub
+    if [ "$(uname)" = "Darwin" ]; then
+        brew install hub
+    else
+        sudo apt install hub
+    fi
 fi
 eval "$(hub alias -s)"
 compdef hub=git
@@ -175,27 +203,50 @@ alias gb='git browse'
 
 # tig
 if ! type tig > /dev/null 2>&1; then
-    brew install tig
+    if [ "$(uname)" = "Darwin" ]; then
+        brew install tig
+    else
+        sudo apt install tig
+    fi
 fi
 alias g='tig'
 
 # node
+export PATH="$HOME/.nodenv/bin:$PATH"
 if ! type nodenv > /dev/null 2>&1; then
-    brew install nodenv
+    if [ "$(uname)" = "Darwin" ]; then
+        brew install nodenv
+    else
+        git clone https://github.com/nodenv/nodenv.git ~/.nodenv
+        cd ~/.nodenv && src/configure && make -C src
+        mkdir -p "$(nodenv root)"/plugins
+        git clone https://github.com/nodenv/node-build.git "$(nodenv root)"/plugins/node-build
+    fi
 fi
 eval "$(nodenv init -)"
 
 # python
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
 if ! type pyenv > /dev/null 2>&1; then
-    brew install pyenv
+    if [ "$(uname)" = "Darwin" ]; then
+        brew install pyenv
+    else
+        git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+        sudo apt install build-essential
+        cd ~/.pyenv && src/configure && make -C src
+    fi
 fi
 eval "$(pyenv init -)"
+export PATH="$HOME/.local/bin:$PATH"
 
 #ruby
 if ! type rbenv > /dev/null 2>&1; then
-    brew install rbenv ruby-build
+    if [ "$(uname)" = "Darwin" ]; then
+        brew install rbenv ruby-build
+        eval "$(rbenv init -)"
+    fi
 fi
-eval "$(rbenv init -)"
 
 # go
 #export GOROOT=$HOME/lib/go
@@ -204,36 +255,65 @@ export GOPATH=$HOME/go
 export PATH="$GOPATH/bin:$PATH"
 
 # mysql
+export PATH="$HOMEBREW_PREFIX/opt/mysql@5.7/bin:$PATH"
 if ! type mysql > /dev/null 2>&1; then
-    brew install mysql@5.7
+    if [ "$(uname)" = "Darwin" ]; then
+        brew install mysql@5.7
+    fi
 fi
-export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 
 # mycli
 if ! type mycli > /dev/null 2>&1; then
-    brew install mycli
+    if [ "$(uname)" = "Darwin" ]; then
+        brew install mycli
+    fi
+fi
+
+# azure cli
+if ! type az > /dev/null 2>&1; then
+    if [ "$(uname)" = "Darwin" ]; then
+        brew install azure-cli
+    fi
 fi
 
 # awscli
 if ! type aws > /dev/null 2>&1; then
-    curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
-    sudo installer -pkg AWSCLIV2.pkg -target /
+    if [ "$(uname)" = "Darwin" ]; then
+        curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
+        sudo installer -pkg AWSCLIV2.pkg -target /
+    else
+        sudo apt install unzip
+        if [ $(uname -m) = "x86_64" ]; then
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+        else
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip"
+        fi
+        unzip awscliv2.zip
+        sudo ./aws/install
+    fi
 fi
 
 # saml2aws
 if ! type saml2aws > /dev/null 2>&1; then
-    brew install saml2aws
+    if [ "$(uname)" = "Darwin" ]; then
+        brew install saml2aws
+    fi
+fi
+
+# gcloud
+if ! type gcloud > /dev/null 2>&1; then
+    if [ "$(uname)" = "Darwin" ]; then
+    else
+        sudo apt install apt-transport-https ca-certificates gnupg
+        echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+        curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+        sudo apt update && sudo apt install google-cloud-cli
+        gcloud init
+    fi
 fi
 
 # chrome
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
-
-# ssh
-alias ssh-sm-dev="ssh -f -N -o ServerAliveInterval=60 -L 127.0.0.1:33061:anews-development-cluster.cluster-czturwxx5mqb.ap-northeast-1.rds.amazonaws.com:3306 -i ~/.ssh/files/sm-rds-dev.pem ec2-user@52.194.211.160"
-alias ssh-sm-prod="ssh -f -N -o ServerAliveInterval=60 -L 127.0.0.1:33063:anews-production-cluster.cluster-czturwxx5mqb.ap-northeast-1.rds.amazonaws.com:3306 -i ~/.ssh/files/sm-rds-dev.pem ec2-user@52.194.211.160"
-alias ssh-logos="ssh -f -N -o ServerAliveInterval=60 -L 127.0.0.1:33070:logos-production.caon4mkpg0d2.ap-northeast-1.rds.amazonaws.com:3306 -i ~/.ssh/files/sm-rds-dev.pem ec2-user@52.194.211.160"
-alias ssh-sm-asales-dev="ssh -f -N -o ServerAliveInterval=60 -L 127.0.0.1:33080:asales-development-cluster.cluster-czturwxx5mqb.ap-northeast-1.rds.amazonaws.com:33066 -i ~/.ssh/files/sm-rds-dev.pem ec2-user@52.194.211.160"
-alias ssh-sm-asales-prod="ssh -f -N -o ServerAliveInterval=60 -L 127.0.0.1:33081:asales-production-cluster.cluster-czturwxx5mqb.ap-northeast-1.rds.amazonaws.com:33066 -i ~/.ssh/files/sm-prod.pem sm-prod@13.231.147.162"
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
