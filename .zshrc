@@ -150,11 +150,14 @@ alias pod=/Users/ryuichi/.rbenv/shims/pod
 #alias pod=/usr/local/bin/pod
 
 # diff
-if [[ -x `which colordiff` ]]; then
-    alias diff='colordiff -uprN'
-else
-    alias diff='diff -uprN'
+if ! type colordiff > /dev/null 2>&1; then
+    if [ "$(uname)" = "Darwin" ]; then
+        brew install colordiff
+    else
+        sudo apt install colordiff
+    fi
 fi
+alias diff='colordiff -uprN'
 
 #tmux
 if ! type tmux > /dev/null 2>&1; then
