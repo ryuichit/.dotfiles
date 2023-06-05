@@ -276,6 +276,8 @@ fi
 if ! type az > /dev/null 2>&1; then
     if [ "$(uname)" = "Darwin" ]; then
         brew install azure-cli
+    else
+        curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
     fi
 fi
 
