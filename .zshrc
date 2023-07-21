@@ -238,6 +238,9 @@ if ! type pyenv > /dev/null 2>&1; then
         git clone https://github.com/pyenv/pyenv.git ~/.pyenv
         sudo apt install build-essential
         cd ~/.pyenv && src/configure && make -C src
+	# Pythonの依存ライブラリをインストール
+	sudo apt install zlib1g-dev libssl-dev \
+	     libbz2-dev libncurses5-dev libffi-dev libreadline-dev libsqlite3-dev liblzma-dev
     fi
 fi
 eval "$(pyenv init -)"
