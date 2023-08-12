@@ -203,6 +203,11 @@ fi
 eval "$(hub alias -s)"
 compdef hub=git
 alias gb='git browse'
+if [ "$(uname)" = "Darwin" ]; then
+else
+    sudo cp ~/.dotfiles/iterm /usr/local/bin/
+    export BROWSER=iterm
+fi
 
 # tig
 if ! type tig > /dev/null 2>&1; then
