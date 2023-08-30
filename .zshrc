@@ -153,8 +153,24 @@ alias pod=/Users/ryuichi/.rbenv/shims/pod
 if ! type colordiff > /dev/null 2>&1; then
     if [ "$(uname)" = "Darwin" ]; then
         brew install colordiff
+    elif [ -f /etc/os-release ]; then
+        case $ID in
+            ubuntu)
+                sudo apt install -y colordiff
+                ;;
+            centos)
+                sudo yum install -y colordiff
+                ;;
+            amzn)
+                sudo amazon-linux-extras install -y epel
+                sudo yum install -y --enablerepo=epel colordiff
+                ;;
+            *)
+                echo "Unknown Linux OS"
+                ;;
+        esac
     else
-        sudo apt install colordiff
+        echo "Cannot determine the OS"
     fi
 fi
 alias diff='colordiff -uprN'
@@ -163,8 +179,23 @@ alias diff='colordiff -uprN'
 if ! type tmux > /dev/null 2>&1; then
     if [ "$(uname)" = "Darwin" ]; then
         brew install tmux
+    elif [ -f /etc/os-release ]; then
+        case $ID in
+            ubuntu)
+                sudo apt install -y tmux
+                ;;
+            centos)
+                sudo yum install -y tmux
+                ;;
+            amzn)
+                sudo yum install -y tmux
+                ;;
+            *)
+                echo "Unknown Linux OS"
+                ;;
+        esac
     else
-        sudo apt install tmux
+        echo "Cannot determine the OS"
     fi
 fi
 
@@ -172,8 +203,23 @@ fi
 if ! type emacs > /dev/null 2>&1; then
     if [ "$(uname)" = "Darwin" ]; then
         brew install emacs
+    elif [ -f /etc/os-release ]; then
+        case $ID in
+            ubuntu)
+                sudo apt install -y emacs
+                ;;
+            centos)
+                sudo yum install -y emacs
+                ;;
+            amzn)
+                sudo yum install -y emacs
+                ;;
+            *)
+                echo "Unknown Linux OS"
+                ;;
+        esac
     else
-        sudo apt install emacs
+        echo "Cannot determine the OS"
     fi
 fi
 
@@ -185,10 +231,25 @@ if ! type diff-highlight > /dev/null 2>&1; then
     if [ "$(uname)" = "Darwin" ]; then
         brew install git
         ln -s $HOMEBREW_PREFIX/share/git-core/contrib/diff-highlight/diff-highlight $HOMEBREW_PREFIX/bin/diff-highlight
+    elif [ -f /etc/os-release ]; then
+        case $ID in
+            ubuntu)
+                sudo apt install -y git
+                sudo chmod +x /usr/share/doc/git/contrib/diff-highlight/diff-highlight
+                sudo ln -s /usr/share/doc/git/contrib/diff-highlight/diff-highlight /usr/local/bin/diff-highlight
+                ;;
+            centos)
+                # Nothing to do
+                ;;
+            amzn)
+                # Nothing to do
+                ;;
+            *)
+                echo "Unknown Linux OS"
+                ;;
+        esac
     else
-        sudo apt install git
-        sudo chmod +x /usr/share/doc/git/contrib/diff-highlight/diff-highlight
-        sudo ln -s /usr/share/doc/git/contrib/diff-highlight/diff-highlight /usr/local/bin/diff-highlight
+        echo "Cannot determine the OS"
     fi
 fi
 
@@ -196,8 +257,23 @@ fi
 if ! type hub > /dev/null 2>&1; then
     if [ "$(uname)" = "Darwin" ]; then
         brew install hub
+    elif [ -f /etc/os-release ]; then
+        case $ID in
+            ubuntu)
+                sudo apt install -y hub
+                ;;
+            centos)
+                sudo yum install -y hub
+                ;;
+            amzn)
+                sudo yum install -y hub
+                ;;
+            *)
+                echo "Unknown Linux OS"
+                ;;
+        esac
     else
-        sudo apt install hub
+        echo "Cannot determine the OS"
     fi
 fi
 eval "$(hub alias -s)"
@@ -213,8 +289,23 @@ fi
 if ! type tig > /dev/null 2>&1; then
     if [ "$(uname)" = "Darwin" ]; then
         brew install tig
+    elif [ -f /etc/os-release ]; then
+        case $ID in
+            ubuntu)
+                sudo apt install -y tig
+                ;;
+            centos)
+                sudo yum install -y tig
+                ;;
+            amzn)
+                sudo yum install -y tig
+                ;;
+            *)
+                echo "Unknown Linux OS"
+                ;;
+        esac
     else
-        sudo apt install tig
+        echo "Cannot determine the OS"
     fi
 fi
 alias g='tig'
@@ -239,13 +330,26 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 if ! type pyenv > /dev/null 2>&1; then
     if [ "$(uname)" = "Darwin" ]; then
         brew install pyenv
+    elif [ -f /etc/os-release ]; then
+        case $ID in
+            ubuntu)
+                git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+                sudo apt install -y build-essential
+                cd ~/.pyenv && src/configure && make -C src
+                # Pythonの依存ライブラリをインストール
+                sudo apt install -y zlib1g-dev libssl-dev \
+                     libbz2-dev libncurses5-dev libffi-dev libreadline-dev libsqlite3-dev liblzma-dev
+                ;;
+            centos)
+                ;;
+            amzn)
+                ;;
+            *)
+                echo "Unknown Linux OS"
+                ;;
+        esac
     else
-        git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-        sudo apt install build-essential
-        cd ~/.pyenv && src/configure && make -C src
-	# Pythonの依存ライブラリをインストール
-	sudo apt install zlib1g-dev libssl-dev \
-	     libbz2-dev libncurses5-dev libffi-dev libreadline-dev libsqlite3-dev liblzma-dev
+        echo "Cannot determine the OS"
     fi
 fi
 eval "$(pyenv init -)"
@@ -294,15 +398,28 @@ if ! type aws > /dev/null 2>&1; then
     if [ "$(uname)" = "Darwin" ]; then
         curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
         sudo installer -pkg AWSCLIV2.pkg -target /
+    elif [ -f /etc/os-release ]; then
+        case $ID in
+            ubuntu)
+                sudo apt install -y unzip
+                if [ $(uname -m) = "x86_64" ]; then
+                    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+                else
+                    curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip"
+                fi
+                unzip awscliv2.zip
+                sudo ./aws/install
+                ;;
+            centos)
+                ;;
+            amzn)
+                ;;
+            *)
+                echo "Unknown Linux OS"
+                ;;
+        esac
     else
-        sudo apt install unzip
-        if [ $(uname -m) = "x86_64" ]; then
-            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-        else
-            curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip"
-        fi
-        unzip awscliv2.zip
-        sudo ./aws/install
+        echo "Cannot determine the OS"
     fi
 fi
 
@@ -316,12 +433,25 @@ fi
 # gcloud
 if ! type gcloud > /dev/null 2>&1; then
     if [ "$(uname)" = "Darwin" ]; then
+    elif [ -f /etc/os-release ]; then
+        case $ID in
+            ubuntu)
+                sudo apt install -y apt-transport-https ca-certificates gnupg
+                echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+                curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+                sudo apt update -y && sudo apt install -y google-cloud-cli
+                gcloud init
+                ;;
+            centos)
+                ;;
+            amzn)
+                ;;
+            *)
+                echo "Unknown Linux OS"
+                ;;
+        esac
     else
-        sudo apt install apt-transport-https ca-certificates gnupg
-        echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-        curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-        sudo apt update && sudo apt install google-cloud-cli
-        gcloud init
+        echo "Cannot determine the OS"
     fi
 fi
 
