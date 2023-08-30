@@ -9,7 +9,7 @@ if [ "$SHELL" = "/bin/bash" ]; then
                 sudo yum install zsh
                 ;;
             amzn)
-                sudo yum install zsh
+                sudo yum install zsh util-linux-user
                 ;;
             *)
                 echo "Unknown Linux OS"
