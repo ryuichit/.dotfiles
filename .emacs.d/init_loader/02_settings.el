@@ -75,3 +75,15 @@
 ;; カラーテーマを設定する
 ;; ----------------------------------------
 (load-theme 'manoj-dark t)
+
+;; ----------------------------------------
+;; display-line-numbers-mode
+;; ----------------------------------------
+(if (version<= "26.0.50" emacs-version)
+    (progn
+      (global-display-line-numbers-mode)
+      (set-face-attribute 'line-number nil
+                          :foreground "DarkOliveGreen")
+      (set-face-attribute 'line-number-current-line nil
+                          :foreground "gold")
+      ))
