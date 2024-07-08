@@ -2,6 +2,10 @@
 ;; elpy
 ;; ----------------------------------------
 (elpy-enable)
+;; ~/.emacs.d/elpy/rpc-venv/bin/python が symlink 先の ~/.pyenv/ の python
+;; package を参照できない問題があり、以下を指定すると解消する。
+;; Ref: https://github.com/jorgenschaefer/elpy/issues/1937#issuecomment-934825603
+(setq elpy-rpc-python-command "~/.pyenv/shims/python")
 ;;
 ;; テスト実行のキーバインド
 (define-key elpy-mode-map (kbd "C-c t") 'elpy-test)
