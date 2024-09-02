@@ -149,6 +149,10 @@ alias grep='grep --color=auto'
 alias pod=/Users/ryuichi/.rbenv/shims/pod
 #alias pod=/usr/local/bin/pod
 
+if [ -f /etc/os-release ]; then
+    . /etc/os-release
+fi
+
 # diff
 if ! type colordiff > /dev/null 2>&1; then
     if [ "$(uname)" = "Darwin" ]; then
