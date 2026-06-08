@@ -336,35 +336,43 @@ fi
 eval "$(nodenv init -)"
 
 # python
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-if ! type pyenv > /dev/null 2>&1; then
-    if [ "$(uname)" = "Darwin" ]; then
-        brew install pyenv
-    elif [ -f /etc/os-release ]; then
-        case $ID in
-            ubuntu)
-                git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-                sudo apt install -y build-essential
-                cd ~/.pyenv && src/configure && make -C src
-                # Pythonの依存ライブラリをインストール
-                sudo apt install -y zlib1g-dev libssl-dev \
-                     libbz2-dev libncurses5-dev libffi-dev libreadline-dev libsqlite3-dev liblzma-dev
-                ;;
-            centos)
-                ;;
-            amzn)
-                ;;
-            *)
-                echo "Unknown Linux OS"
-                ;;
-        esac
-    else
-        echo "Cannot determine the OS"
-    fi
+# pyenv
+# export PYENV_ROOT="$HOME/.pyenv"
+# export PATH="$PYENV_ROOT/bin:$PATH"
+# if ! type pyenv > /dev/null 2>&1; then
+#     if [ "$(uname)" = "Darwin" ]; then
+#         brew install pyenv
+#     elif [ -f /etc/os-release ]; then
+#         case $ID in
+#             ubuntu)
+#                 git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+#                 sudo apt install -y build-essential
+#                 cd ~/.pyenv && src/configure && make -C src
+#                 # Pythonの依存ライブラリをインストール
+#                 sudo apt install -y zlib1g-dev libssl-dev \
+#                      libbz2-dev libncurses5-dev libffi-dev libreadline-dev libsqlite3-dev liblzma-dev
+#                 ;;
+#             centos)
+#                 ;;
+#             amzn)
+#                 ;;
+#             *)
+#                 echo "Unknown Linux OS"
+#                 ;;
+#         esac
+#     else
+#         echo "Cannot determine the OS"
+#     fi
+# fi
+# eval "$(pyenv init -)"
+# export PATH="$HOME/.local/bin:$PATH"
+
+# uv
+if ! type uv > /dev/null 2>&1; then
+    curl -LsSf https://astral.sh/uv/install.sh | sh
 fi
-eval "$(pyenv init -)"
-export PATH="$HOME/.local/bin:$PATH"
+eval "$(uv generate-shell-completion zsh)"
+eval "$(uvx --generate-shell-completion zsh)"
 
 #ruby
 if ! type rbenv > /dev/null 2>&1; then
