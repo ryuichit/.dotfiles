@@ -140,6 +140,13 @@ function cl() {
 
 #homebrew
 #export HOMEBREW_CACHE=/opt/homebrew/cache
+if ! type brew > /dev/null 2>&1; then
+    if [ "$(uname)" = "Darwin" ]; then
+        echo Installing Homebrew...
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        eval "$(/opt/homebrew/bin/brew shellenv zsh)"
+    fi
+fi
 
 #grep
 export GREP_COLOR="01;32"
