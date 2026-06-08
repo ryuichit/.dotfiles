@@ -5,6 +5,8 @@
 ;; ~/.emacs.d/elpy/rpc-venv/bin/python が symlink 先の ~/.pyenv/ の python
 ;; package を参照できない問題があり、以下を指定すると解消する。
 ;; Ref: https://github.com/jorgenschaefer/elpy/issues/1937#issuecomment-934825603
+;; また、以下で指定したpythonで依存パッケージをインストールしておく必要がある
+;;     pip install packaging jedi rope flake8 autopep8 black
 (setq elpy-rpc-python-command "~/.pyenv/shims/python")
 ;;
 ;; テスト実行のキーバインド
